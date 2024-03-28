@@ -24,14 +24,24 @@ public class ViewController {
     @GetMapping("/admin")
     public String getAdminPage(Principal principal, Model model) {
         User user = userService.findByEmail(principal.getName()).get();
-        model.addAttribute("user", user);
-        return "admin";
+        if (user != null) {
+            model.addAttribute("user", user);
+            return "admin";
+        } else {
+            return "login";
+        }
+
     }
 
     @GetMapping("/user")
     public String getUserPage(Principal principal, Model model) {
         User user = userService.findByEmail(principal.getName()).get();
-        model.addAttribute("user", user);
-        return "user";
+        if (user != null) {
+            model.addAttribute("user", user);
+            return "user";
+        } else {
+            return "login";
+        }
+
     }
 }
