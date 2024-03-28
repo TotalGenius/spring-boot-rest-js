@@ -21,13 +21,23 @@ public class AdminRestController {
     @GetMapping()
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAll();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        if (!users.isEmpty()) {
+            return new ResponseEntity<>(users, HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity<>(users, HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
         User user = userService.getById(id);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping()

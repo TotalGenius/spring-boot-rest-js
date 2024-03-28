@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Repository
@@ -43,11 +44,11 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User getByUsername(String username) {
-        return entityManager
+    public Optional<User> getByUsername(String username) {
+        return Optional.of(entityManager
                 .createQuery("select u from User u left join fetch u.roles where u.email= ?1", User.class)
                 .setParameter(1, username)
-                .getSingleResult();
+                .getSingleResult());
     }
 
     @Override

@@ -23,7 +23,11 @@ public class UserRestController {
 
     @GetMapping()
     public ResponseEntity<User> getUser(Principal principal) {
-        User user = userService.findByEmail(principal.getName());
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        User user = userService.findByEmail(principal.getName()).get();
+        if (user == null) {
+            return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
     }
 }

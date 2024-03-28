@@ -2,6 +2,7 @@ package com.example.spring_boot_rest_js.repository;
 
 import com.example.spring_boot_rest_js.entity.User;
 
+import java.util.Optional;
 import java.util.Set;
 
 public interface UserRepository {
@@ -13,6 +14,6 @@ public interface UserRepository {
 
     void deleteById(Long id);
 
-    User getByUsername(String username);
+    Optional<User> getByUsername(String username);
     void update(User user);
 }
